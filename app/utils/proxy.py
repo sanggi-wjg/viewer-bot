@@ -94,33 +94,22 @@ _proxy_servers = [
 
 def _check_is_alive(proxies: [Proxy]):
     for proxy in proxies:
-        print(f"{proxy.ip}:{proxy.port}", end="\t\t\t")
+        print(f"{proxy.ip}:{proxy.port}", end="\t\t\t\t")
 
         try:
-            resp = requests.get(
+            requests.get(
                 proxy.get_address(),
                 timeout=2,
-                # allow_redirects=False
-            )
-            resp.raise_for_status()
-            # resp2 = requests.get(
-            #     proxy.get_address(),
-            #     timeout=2,
-            #     verify=False,
-            #     # allow_redirects=False
-            # )
-            # if not resp.ok and not resp2.ok:
-            #     resp.raise_for_status()
-            #     resp2.raise_for_status()
-            # if resp.is_redirect or resp2.is_redirect:
-            #     raise requests.HTTPError()
+            ).raise_for_status()
 
         except requests.RequestException as e:
             proxy.is_alive = False
             print(f"fail, {e}", flush=True)
+
         else:
             proxy.is_alive = True
             print("ok", flush=True)
+
     return proxies
 
 

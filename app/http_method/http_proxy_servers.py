@@ -7,17 +7,17 @@ url = "https://www.howsmyssl.com"
 
 if __name__ == "__main__":
     # for proxy in PROXY_SERVERS:
-    for proxy in [Proxy("211.222.252.187", 8193)]:
+    for proxy in [Proxy("210.212.39.138", 8080)]:
         resp = requests.get(
             url,
-            # allow_redirects=False,
             proxies={
                 "http": proxy.get_address(),
                 "https": proxy.get_address(),
             },
-            timeout=3,
+            allow_redirects=True,
+            # timeout=3,
             headers={
-                "X-Requested-With": "XMLHttpRequest",
+                # "X-Requested-With": "XMLHttpRequest",
                 "Accept": "*/*",
                 "Accept-Language": "en-US,en;q=0.9,ko-KR;q=0.8,ko;q=0.7",
                 "Referer": "www.google.com",
